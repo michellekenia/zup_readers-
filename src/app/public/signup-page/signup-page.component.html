@@ -1,1 +1,23 @@
-<p>signup-page works!</p>
+<div class="container">
+    
+    <form class= "form-group" [formGroup]="form">
+
+        <div class="form-control">
+            <label for="">Nome</label>
+            <input type="text" formControlName="nome">
+        </div>
+
+        <div class="form-control">
+            <label for="">Email</label>
+            <input type="text" formControlName="email">
+        </div>
+
+        <div class="form-control">
+            <label for="">Password</label>
+            <input type="text" formControlName="password">
+        </div>
+
+        <button (click)="signup()">Signup</button>
+
+    </form>
+</div>
