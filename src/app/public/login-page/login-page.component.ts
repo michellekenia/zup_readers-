@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { CrudServiceService } from 'src/app/shared/services/crud-service.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginPageComponent implements OnInit {
   cep: any;
 
   constructor(
-    private crudService: CrudServiceService,
+    private authService: AuthService,
     private route: Router) { }
 
   ngOnInit(): void {
@@ -22,25 +23,17 @@ export class LoginPageComponent implements OnInit {
       'email': new FormControl(null, [Validators.email, Validators.required]),
       'password': new FormControl(null, [Validators.required])
     })
-    this.crudService.get('https://viacep.com.br/ws/73015108/json/').subscribe(ceps => {
-      this.cep = ceps;
-    })
   }
 
   login() {
-    if (this.form.invalid)  {
-      alert('ta invalido esse negocio')
+    if (this.form.invalid) {
+      alert('Formulário inválido')
       return
     }
-    alert('o email é ' + this.form.value.email + 'a senha é' + this.form.value.password);
-    this.crudService.post('http://localhost:8080/login', this.form.value).subscribe(res => {
-      if (res) {
-        this.route.navigate(['feed'])
-      }
-
-    })   
-
+    this.authService.login(this.form.value);
   }
+
+
 
 
 

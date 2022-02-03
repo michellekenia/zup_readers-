@@ -9,6 +9,7 @@ export class CrudServiceService {
   constructor(private http: HttpClient) { }
 
   public get(url: string) {
+    // loading 
     return this.http.get(url);
   }
 
