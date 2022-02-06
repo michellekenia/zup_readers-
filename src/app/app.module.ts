@@ -8,12 +8,16 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './public/login-page/login-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupPageComponent } from './public/signup-page/signup-page.component';
+import { FeedPageComponent } from './private/feed-page/feed-page.component';
+import { BookProfileComponent } from './private/book-profile/book-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    SignupPageComponent
+    SignupPageComponent,
+    FeedPageComponent,
+    BookProfileComponent
   ],
   imports: [
     BrowserModule,
