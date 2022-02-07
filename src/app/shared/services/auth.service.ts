@@ -1,26 +1,37 @@
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject, first } from 'rxjs';
 import { CrudServiceService } from './crud-service.service';
+import jwt_decode from "jwt-decode";
+import { environment } from 'src/environments/environment';
+
+interface TokenInfo {
+  sub?: string, exp?: number, idUsuario?: string
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  user: {email: string, password: string} | null = null;
+  user: BehaviorSubject<TokenInfo> = new BehaviorSubject({});
   localStorageKey = 'auth';
 
   constructor(
     private crudService: CrudServiceService,
+    private http: HttpClient,
     private route: Router) { }
 
-  login(loginData: {email: string, password: string}) {
-    this.crudService.post('https://viacep.com.br/ws/01001000/json/', loginData).subscribe((res: any) => {
-      if (res) {
+  login(loginData: {email: string, senha: string}) {
+    this.http.post(environment.BASE_PATH + 'login', loginData, {observe: 'response' as 'response'})
+      .subscribe((resp: any) => {   
+      const token = resp.headers.get('Authorization');
+      console.log(token)
+      if (token) {
         if (!localStorage.getItem(this.localStorageKey)) {
-          localStorage.setItem(this.localStorageKey, JSON.stringify(res))
-        }
-        this.user = res;
+          localStorage.setItem(this.localStorageKey, JSON.stringify(token))
+        }        
         this.route.navigate(['feed'])
       }
     },
@@ -30,11 +41,22 @@ export class AuthService {
     })
   }
 
+  loggout() {
+    localStorage.removeItem(this.localStorageKey);
+    this.route.navigate(['login']);
+  }
+
   isLogged() {
     return !!localStorage.getItem(this.localStorageKey);
   }
 
-  getUser() {
+  getUser(): BehaviorSubject<TokenInfo> {
+    if (localStorage.getItem(this.localStorageKey)) {
+      let decode = jwt_decode(localStorage.getItem(this.localStorageKey)!.replace('Token ', '')) as {sub: string, exp: number, idUsuario: string};
+      this.crudService.get(environment.BASE_PATH + 'usuarios/' + decode.idUsuario).subscribe(data => {
+        this.user.next(data);
+      })
+    }    
     return this.user;
   }
 }

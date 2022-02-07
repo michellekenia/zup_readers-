@@ -1,1 +1,22 @@
-<p>feed-page works!</p>
+<header>
+    <div class="logo-container">
+        <span>zup_readers</span>
+    </div>
+    <div class="user-name">
+        <span></span>
+    </div>
+    <div class="buttons-container">
+        <a (click)="loggout()">Sair</a>
+    </div>
+</header>
+<section class="content">
+    <div class="content-container">
+        <app-book-card 
+            *ngFor="let book of books" 
+            [author]="book.author" 
+            [description]="book.description"
+            [name]="book.name"
+            [image]="book.image"></app-book-card>
+    </div>
+</section>
+

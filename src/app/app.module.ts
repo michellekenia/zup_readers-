@@ -6,10 +6,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './public/login-page/login-page.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignupPageComponent } from './public/signup-page/signup-page.component';
 import { FeedPageComponent } from './private/feed-page/feed-page.component';
 import { BookProfileComponent } from './private/book-profile/book-profile.component';
+import { BookCardComponent } from './shared/components/book-card/book-card.component';
+import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { BookProfileComponent } from './private/book-profile/book-profile.compon
     LoginPageComponent,
     SignupPageComponent,
     FeedPageComponent,
-    BookProfileComponent
+    BookProfileComponent,
+    BookCardComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,9 @@ import { BookProfileComponent } from './private/book-profile/book-profile.compon
     HttpClientModule
   
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
