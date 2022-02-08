@@ -30,7 +30,7 @@ export class AuthService {
       console.log(token)
       if (token) {
         if (!localStorage.getItem(this.localStorageKey)) {
-          localStorage.setItem(this.localStorageKey, JSON.stringify(token))
+          localStorage.setItem(this.localStorageKey, token)
         }        
         this.route.navigate(['feed'])
       }
@@ -53,8 +53,14 @@ export class AuthService {
   getUser(): BehaviorSubject<TokenInfo> {
     if (localStorage.getItem(this.localStorageKey)) {
       let decode = jwt_decode(localStorage.getItem(this.localStorageKey)!.replace('Token ', '')) as {sub: string, exp: number, idUsuario: string};
-      this.crudService.get(environment.BASE_PATH + 'usuarios/' + decode.idUsuario).subscribe(data => {
-        this.user.next(data);
+      this.crudService.get(environment.BASE_PATH + 'usuarios/' + decode.idUsuario).subscribe({
+        next: data => {
+          console.log('user', data)
+          this.user.next(data);
+        },
+        error: err => {
+          console.log('err', err)
+        }
       })
     }    
     return this.user;

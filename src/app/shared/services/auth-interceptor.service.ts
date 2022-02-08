@@ -10,15 +10,10 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const token: string | null = localStorage.getItem('auth'); // This retrieves a token from local storage
+    let token: string | null = localStorage.getItem('auth'); // This retrieves a token from local storage
     if (token) {
       req = req.clone({ headers: req.headers.set('Authorization', token) });// This clones HttpRequest and Authorization header with Bearer token added
-      req = req.clone({ headers: req.headers.set('content-type', 'application/json') });
     }
-    // req = req.clone({ headers: req.headers.set('User-agent', 'SomeUserAgent') });
-    // req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
-
-    console.log(req);
 
     return next.handle(req)
     .pipe(
