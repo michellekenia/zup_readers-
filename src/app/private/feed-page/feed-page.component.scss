@@ -1,0 +1,46 @@
+header{
+    background-color: #0c3455;
+    width: 100vw;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+}
+div.logo-container{
+    margin: 5px;
+    background-color: #e6e7e8;
+    border-radius: 10px;
+    
+}
+div.user-name{
+    color: #e6e7e8;
+    padding-left: 25px;
+}
+div.buttons-container{
+    color: #e6e7e8;
+    padding-left: 25px;
+}
+
+section.content{
+    background-color: #939598;
+    width: 100vw;
+    height: calc(100vh - 70px);
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+
+}
+
+div.content-container{
+    padding: 40px;
+    height: fit-content;
+    background-color: #0c3455;
+    display: flex;
+    flex-wrap: wrap;
+
+    max-width: 1200px;
+
+}
