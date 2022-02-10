@@ -1,22 +1,17 @@
-<header>
-    <div class="logo-container">
-        <span>zup_readers</span>
-    </div>
-    <div class="user-name">
-        <span></span>
-    </div>
-    <div class="buttons-container">
-        <a (click)="loggout()">Sair</a>
-    </div>
-</header>
+<app-header></app-header>
 <section class="content">
     <div class="content-container">
         <app-book-card 
-            *ngFor="let book of books" 
-            [author]="book.author" 
-            [description]="book.description"
-            [name]="book.name"
-            [image]="book.image"></app-book-card>
+            *ngFor="let book of books"
+            (click)="onProfileOpen(book)" 
+            [author]="book.autor" 
+            [description]="book.review"
+            [name]="book.nome"
+            [image]="book.imagem"
+            [gender]="book.genero"></app-book-card>
     </div>
+
+    <button class="float-button" (click)="onProfileOpen()">+</button>
 </section>
+<app-book-profile *ngIf="openProfile | async" [openProfile]="openProfile" [currentBook]="currentBook"></app-book-profile>
 

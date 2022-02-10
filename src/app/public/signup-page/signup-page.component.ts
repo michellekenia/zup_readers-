@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CrudServiceService } from 'src/app/shared/services/crud-service.service';
 
@@ -17,10 +17,18 @@ export class SignupPageComponent implements OnInit {
     private route: Router) { }
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+      'email': new FormControl(null, [Validators.email, Validators.required]),
+      'senha': new FormControl(null, [Validators.required]),
+      'nome': new FormControl(null, [Validators.required])      
+    })
   }
 
   signup(){
-    return
+  }
+
+  goToLogin() {
+    this.route.navigate(['login']);
   }
 
 }

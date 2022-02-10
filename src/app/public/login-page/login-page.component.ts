@@ -33,6 +33,10 @@ export class LoginPageComponent implements OnInit {
     this.authService.login(this.form.value);
   }
 
+  cadastro() {
+    this.route.navigate(['signup'])
+  }
+
 
 
 

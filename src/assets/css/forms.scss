@@ -1,0 +1,49 @@
+.form-group {
+    padding: 20px;
+    background: var(--branco);
+    display: flex;
+    flex-wrap: wrap;
+    background: var(--branco);
+    border-radius: 4px;
+    max-height: 70vh;
+    overflow: auto;
+    .form-control {
+        width: 100%;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: var(--font-family);
+            color: var(--preto);
+            margin-bottom: 6px;           
+        }
+        
+        input, textarea, select {
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: var(--font-family);
+            
+            height: auto;
+            border-radius: 4px;
+            background: var(--cinza);
+            border: solid var(--cinza) 2px;
+            color: var(--preto);
+            box-sizing: border-box;
+            padding: 10px 7px;
+            outline: none;
+            &::placeholder {
+                color: var(--preto);
+                opacity: 0.7;
+            }
+            &.ng-invalid.ng-touched {
+                border-color: var(--danger);
+            }
+            &.ng-valid.ng-touched {
+                border-color: var(--verde-escuro);
+            }
+
+        }
+    }
+}

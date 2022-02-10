@@ -1,20 +1,24 @@
 <div class="container">
 
     <form class="form-group" [formGroup]="form">
+
+        <h2>Login ZupReaders</h2>
+        
+        <img src="../../../assets/img/logo.png" alt="">
         
         <div class="form-control">
             <label for="">Email</label>
-            <input type="text" formControlName="email">
+            <input type="text" formControlName="email" placeholder="email">
         </div>
 
         <div class="form-control">
             <label for="">Senha</label>
-            <input type="text" formControlName="senha">
+            <input type="password" formControlName="senha" placeholder="senha" >
         </div>
 
-        <button (click)="login()">Login</button>
+        <button class="zp-button azul" (click)="login()">Login</button>
 
-        <a routerLink="signup"> Não possui conta? Siga para tela de cadastro</a>
+        <a routerLink="signup" (click)="cadastro()"> Não possui conta? Siga para tela de cadastro</a>
 
     </form>
 </div>

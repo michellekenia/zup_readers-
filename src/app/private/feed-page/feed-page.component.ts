@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { environment } from 'src/environments/environment';
 import jwt_decode from "jwt-decode";
 import { CrudServiceService } from 'src/app/shared/services/crud-service.service';
+import { BehaviorSubject } from 'rxjs';
+import { BookInterface } from 'src/app/shared/interfaces/book.interface';
 
 @Component({
   selector: 'app-feed-page',
@@ -11,41 +13,45 @@ import { CrudServiceService } from 'src/app/shared/services/crud-service.service
 })
 export class FeedPageComponent implements OnInit {
 
+  openProfile = new BehaviorSubject(false);
+  currentBook: BehaviorSubject<any> = new BehaviorSubject(null);
+
   user: any;
   
-  books: any[] = [
-    { name: 'iuhiuhiuhui', 
-      author: 'kjhkjhjkh', 
-      image: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg", 
-      description: 'iuhihiuhiuhiuhiuhiuhiuhuihuihi'},
-      { name: 'iuhiuhiuhui', 
-      author: 'kjhkjhjkh', 
-      image: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg", 
-      description: 'iuhihiuhiuhiuhiuhiuhiuhuihuihi'},
-      { name: 'iuhiuhiuhui', 
-      author: 'kjhkjhjkh', 
-      image: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg", 
-      description: 'iuhihiuhiuhiuhiuhiuhiuhuihuihi'},
-      { name: 'iuhiuhiuhui', 
-      author: 'kjhkjhjkh', 
-      image: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg", 
-      description: 'iuhihiuhiuhiuhiuhiuhiuhuihuihi'},
-      { name: 'iuhiuhiuhui', 
-      author: 'kjhkjhjkh', 
-      image: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg", 
-      description: 'iuhihiuhiuhiuhiuhiuhiuhuihuihi'},
-      { name: 'iuhiuhiuhui', 
-      author: 'kjhkjhjkh', 
-      image: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg", 
-      description: 'iuhihiuhiuhiuhiuhiuhiuhuihuihi'},
-      { name: 'iuhiuhiuhui', 
-      author: 'kjhkjhjkh', 
-      image: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg", 
-      description: 'iuhihiuhiuhiuhiuhiuhiuhuihuihi'},
-      { name: 'iuhiuhiuhui', 
-      author: 'kjhkjhjkh', 
-      image: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg", 
-      description: 'iuhihiuhiuhiuhiuhiuhiuhuihuihi'}
+  books: BookInterface[] = [
+    {
+      nome: 'Harry potter e a rola descomunal',
+      autor: 'José mari',
+      imagem: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg",
+      review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
+      tags: "qwe qweqw",
+      genero: "AVENTURA"
+    },
+    {
+      nome: 'harry potter e deu ruim',
+      autor: 'Antonio dos santos',
+      imagem: "https://images-na.ssl-images-amazon.com/images/I/51z0s3GcvwL._SY344_BO1,204,203,200_QL70_ML2_.jpg",
+      review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
+      tags: "qwe qweqw",
+      genero: "AVENTURA"
+    },
+    {
+      nome: 'E o vento levou',
+      autor: 'Alexandre frota',
+      imagem: "https://images-na.ssl-images-amazon.com/images/I/41kT95iZ81L._SX346_BO1,204,203,200_.jpg",
+      review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
+      tags: "qwe qweqw",
+      genero: "AVENTURA"
+    },
+    {
+      nome: 'Algum livro com desfodere-se',
+      autor: 'Um coach',
+      imagem: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg",
+      review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
+      tags: "qwe qweqw",
+      genero: "AVENTURA"
+    }
+
   ]
 
   constructor(
@@ -54,44 +60,49 @@ export class FeedPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.authService.getUser())
-    // chamada com httpclient
-    this.authService.getUser().subscribe(
-      { 
-        next: ( data ) => console.log('Usuario', data),
-        error: (error) => console.log(error)
-      });
+    this.authService.user.subscribe(data => {
+      if (data && data.nome && data.email) {
+        this.user = data;
+      } else {
+        this.authService.getUser();
+      }      
+    })
 
-    // this.crudService.get(environment.BASE_PATH + 'usuarios').subscribe(data => {
-    //   console.log('httpclient/usuarios', data)
-    // })
+    this.currentBook.subscribe( currentBook => {
+      if (!currentBook) {
+        this.getFeedList();
+      }
+    }) 
     
-
-    // chamada com fetch
-    let token = localStorage.getItem('auth')!;
-    let decode = jwt_decode(localStorage.getItem('auth')!.replace('Token ', '')) as {sub: string, exp: number, idUsuario: string};
-    const requestInfo =  {
-      method: 'GET',
-      headers: new Headers({
-        "content-type": "application/json",
-        Authorization: token
-      })
-
-    }
-    // fetch(environment.BASE_PATH + 'usuarios/' + decode.idUsuario, requestInfo)
-    //   .then(data => {
-    //     console.log('Usuario:fetch',data)
-    //   })
-    // fetch(environment.BASE_PATH + 'usuarios' , requestInfo)
-    //   .then(data => {
-    //     console.log('Usuarios:fetch',data)
-    //  })       
   }
 
   loggout() {
     this.authService.loggout();
   }
+  
+  onProfileOpen(book? : BookInterface) {
+    this.currentBook.next(book? book : null);
+    this.openProfile.next(true);
+  }
+  
+  //busca os livros no servidor
+  getFeedList() {
+    let url = this.makeGetUrl();
+    
+    this.crudService.get(url).subscribe( (resp: any) => {
+      this.books = resp;
+    })
+    
+  }
 
+  // monta a url pra buscar no servidor (inserir filtros ou dados da paginação nesse momento)
+  makeGetUrl() {
+    let url = environment.BASE_PATH + 'livros';
+    url + '?size=9999';
+    // adicionar os filtros
+    return url;
+  }
+  
 }
 
 

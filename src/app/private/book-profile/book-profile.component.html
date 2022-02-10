@@ -1,1 +1,47 @@
-<p>book-profile works!</p>
+<div class="container">
+
+    <button class="close-float-button" (click)="close()"><img src="../../../assets/img/fechar_icon.svg" alt=""></button>
+
+    <form class="form-group" [formGroup]="form">
+
+        <h2>{{ currentBookData? 'Livro' : 'Cadastro de Livro'}}</h2>
+        
+        <div class="form-control">
+            <label for="">Imagem</label>
+            <input type="text" formControlName="imagem" placeholder="imagem">
+        </div>
+
+        <img *ngIf="form.get('imagem')?.value" [src]="form.get('imagem')?.value" alt="">
+
+        <div class="form-control">
+            <label for="">Nome</label>
+            <input type="text" formControlName="nome" placeholder="nome">
+        </div>
+
+        <div class="form-control">
+            <label for="">autor</label>
+            <input type="text" formControlName="autor" placeholder="autor">
+        </div>
+
+        <div class="form-control">
+            <label for="">Tags</label>
+            <input type="text" formControlName="tags" placeholder="tags">
+        </div>
+
+        <div class="form-control">
+            <label for="">Genero</label>
+            <select formControlName="genero">
+                <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="">Review</label>
+            <textarea formControlName="review" placeholder="review" ></textarea>
+        </div>
+
+        <button *ngIf="!currentBookData" class="zp-button azul" (click)="salvar()">Salvar</button>
+        <button *ngIf="currentBookData" class="zp-button azul" (click)="editar()">Editar</button>
+
+    </form>
+</div>

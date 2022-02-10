@@ -11,6 +11,7 @@ export class BookCardComponent implements OnInit {
   @Input() description!: string;
   @Input() author!: string;
   @Input() image!: string;
+  @Input() gender!: string;
 
   constructor() { }
 

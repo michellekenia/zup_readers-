@@ -12,6 +12,8 @@ import { FeedPageComponent } from './private/feed-page/feed-page.component';
 import { BookProfileComponent } from './private/book-profile/book-profile.component';
 import { BookCardComponent } from './shared/components/book-card/book-card.component';
 import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
+import { LoadingComponent } from './shared/components/loading/loading.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
     SignupPageComponent,
     FeedPageComponent,
     BookProfileComponent,
-    BookCardComponent
+    BookCardComponent,
+    LoadingComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

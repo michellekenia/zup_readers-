@@ -1,6 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+@import './assets/css/forms.scss';
+@import './assets/css/button.scss';
 * {
+    --azul-escuro: #0e1a33;
+    --azul-claro: #0c3455;
+    --verde-escuro: #8dc63f;
+    --verde-claro: #40ba8d;
+    --laranja-escuro: #ef4123;
+    --laranja-claro: #f7941e;
+    --warning: #ff9900;
+    --danger: #e06666;
+    --branco: #f1f2f2;
+    --cinza: #e6e7e8;
+    --preto: #121b21;
+    --font-family: 'Montserrat';
+    --header-heigth: 70px;
+
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: var(--font-family);
+}
+h1 {
+    color: var(--verde-escuro);
+    font-size: 2rem;
+    margin: none;
+}
+h2 {
+    color: var(--verde-escuro);
+    font-size: 1.7rem;
+    margin: none;
+}
+h3 {
+    color: var(--verde-escuro);
+    font-size: 1.3rem;
+    margin: none;    
 }

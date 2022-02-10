@@ -2,22 +2,28 @@
     
     <form class= "form-group" [formGroup]="form">
 
+        <h2>Cadastro ZupReaders</h2>
+        
+        <img src="../../../assets/img/logo.png" alt="">
+
         <div class="form-control">
             <label for="">Nome</label>
-            <input type="text" formControlName="nome">
+            <input type="text" formControlName="nome" placeholder="nome">
         </div>
 
         <div class="form-control">
             <label for="">Email</label>
-            <input type="text" formControlName="email">
+            <input type="text" formControlName="email" placeholder="email">
         </div>
 
         <div class="form-control">
-            <label for="">Password</label>
-            <input type="text" formControlName="password">
+            <label for="">Senha</label>
+            <input type="text" formControlName="senha" placeholder="senha">
         </div>
 
-        <button (click)="signup()">Signup</button>
+        <button class="zp-button azul" (click)="signup()">Signup</button>
+
+        <a routerLink="signup" (click)="goToLogin()"> Já possui conta? Siga para tela de login</a>
 
     </form>
 </div>
