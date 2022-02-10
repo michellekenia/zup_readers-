@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BookCardComponent implements OnInit {
 
   @Input()  name!: string;
-  @Input() description!: string;
+  @Input() description!: string | null | undefined;
   @Input() author!: string;
   @Input() image!: string;
   @Input() gender!: string;

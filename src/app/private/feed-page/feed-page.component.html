@@ -5,7 +5,7 @@
             *ngFor="let book of books"
             (click)="onProfileOpen(book)" 
             [author]="book.autor" 
-            [description]="book.review"
+            [description]="getReview(book)"
             [name]="book.nome"
             [image]="book.imagem"
             [gender]="book.genero"></app-book-card>

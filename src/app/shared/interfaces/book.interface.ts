@@ -3,6 +3,6 @@ export interface BookInterface {
     autor: string;
     genero: string;
     tags: string;
-    review: string;
+    review: { texto: string};
     imagem: string;
 }

@@ -19,38 +19,38 @@ export class FeedPageComponent implements OnInit {
   user: any;
   
   books: BookInterface[] = [
-    {
-      nome: 'Harry potter e a rola descomunal',
-      autor: 'José mari',
-      imagem: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg",
-      review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
-      tags: "qwe qweqw",
-      genero: "AVENTURA"
-    },
-    {
-      nome: 'harry potter e deu ruim',
-      autor: 'Antonio dos santos',
-      imagem: "https://images-na.ssl-images-amazon.com/images/I/51z0s3GcvwL._SY344_BO1,204,203,200_QL70_ML2_.jpg",
-      review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
-      tags: "qwe qweqw",
-      genero: "AVENTURA"
-    },
-    {
-      nome: 'E o vento levou',
-      autor: 'Alexandre frota',
-      imagem: "https://images-na.ssl-images-amazon.com/images/I/41kT95iZ81L._SX346_BO1,204,203,200_.jpg",
-      review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
-      tags: "qwe qweqw",
-      genero: "AVENTURA"
-    },
-    {
-      nome: 'Algum livro com desfodere-se',
-      autor: 'Um coach',
-      imagem: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg",
-      review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
-      tags: "qwe qweqw",
-      genero: "AVENTURA"
-    }
+    // {
+    //   nome: 'Harry potter e a rola descomunal',
+    //   autor: 'José mari',
+    //   imagem: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg",
+    //   review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
+    //   tags: "qwe qweqw",
+    //   genero: "AVENTURA"
+    // },
+    // {
+    //   nome: 'harry potter e deu ruim',
+    //   autor: 'Antonio dos santos',
+    //   imagem: "https://images-na.ssl-images-amazon.com/images/I/51z0s3GcvwL._SY344_BO1,204,203,200_QL70_ML2_.jpg",
+    //   review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
+    //   tags: "qwe qweqw",
+    //   genero: "AVENTURA"
+    // },
+    // {
+    //   nome: 'E o vento levou',
+    //   autor: 'Alexandre frota',
+    //   imagem: "https://images-na.ssl-images-amazon.com/images/I/41kT95iZ81L._SX346_BO1,204,203,200_.jpg",
+    //   review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
+    //   tags: "qwe qweqw",
+    //   genero: "AVENTURA"
+    // },
+    // {
+    //   nome: 'Algum livro com desfodere-se',
+    //   autor: 'Um coach',
+    //   imagem: "https://images-na.ssl-images-amazon.com/images/I/41897yAI4LL._SX346_BO1,204,203,200_.jpg",
+    //   review: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when',
+    //   tags: "qwe qweqw",
+    //   genero: "AVENTURA"
+    // }
 
   ]
 
@@ -90,7 +90,10 @@ export class FeedPageComponent implements OnInit {
     let url = this.makeGetUrl();
     
     this.crudService.get(url).subscribe( (resp: any) => {
-      this.books = resp;
+      console.log(resp)
+      if (resp && resp.content) {
+        this.books = [...resp.content];
+      }
     })
     
   }
@@ -103,6 +106,9 @@ export class FeedPageComponent implements OnInit {
     return url;
   }
   
+  getReview(book: any) {
+    return book && book.review && book.review.texto? book.review.texto: '';
+  }
 }
 
 

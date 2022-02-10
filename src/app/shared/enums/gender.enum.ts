@@ -24,5 +24,6 @@ export enum GenderEnum {
     POESIA = 'POESIA',
     RELIGIAO = 'RELIGIAO',
     HUMANIDADE = 'HUMANIDADE',
-    TECNOLOGIA = 'TECNOLOGIA'
+    TECNOLOGIA = 'TECNOLOGIA',
+    OUTROS = 'OUTROS'
 }
