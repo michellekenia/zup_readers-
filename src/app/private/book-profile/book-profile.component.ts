@@ -47,7 +47,7 @@ export class BookProfileComponent implements OnInit {
 
   buildForm() {
     this.form = new FormGroup({
-      'id': new FormControl(null, [Validators.required]),
+      'id': new FormControl(null),
       'nome': new FormControl(null, [Validators.required]),
       'autor': new FormControl(null, [Validators.required]),      
       'tags': new FormControl(null, [Validators.required]),
