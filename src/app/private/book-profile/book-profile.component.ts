@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, never, Subscription } from 'rxjs';
 import { GenderEnum } from 'src/app/shared/enums/gender.enum';
+import { TagEnum } from 'src/app/shared/enums/tag.enum';
 import { BookInterface } from 'src/app/shared/interfaces/book.interface';
 import { CrudServiceService } from 'src/app/shared/services/crud-service.service';
 import { environment } from 'src/environments/environment';
@@ -25,12 +26,16 @@ export class BookProfileComponent implements OnInit, OnDestroy {
   gender = GenderEnum;
   genders: any[] = [];
 
+  tags: any[] = [];
+  tagEnum = TagEnum;
+
   form: FormGroup = new FormGroup({});
 
   constructor(private crudService: CrudServiceService) { }
 
   ngOnInit(): void {
     this.genders = Object.keys(this.gender);
+    this.tags = Object.keys(this.tagEnum);
     this.buildForm()
     this.subscriptions.push(
       this.currentBook.subscribe(data => {
@@ -82,7 +87,7 @@ export class BookProfileComponent implements OnInit, OnDestroy {
       alert('Formulário inválido')
       return      
     }
-    this.crudService.put(environment.BASE_PATH + 'colocar url livros', this.formatToSend(this.form.value))
+    this.crudService.put(environment.BASE_PATH + 'livros/' + this.form.value.id, this.formatToSend(this.form.value))
       .subscribe( resp => {
         // feedback
         this.close();
