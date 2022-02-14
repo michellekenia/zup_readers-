@@ -28,7 +28,6 @@ export class SignupPageComponent implements OnInit {
   }
 
   signup(){
-    console.log('aki')
     if (this.form.invalid) {
       alert('Formulário inválido')
       return

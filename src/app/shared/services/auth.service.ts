@@ -26,7 +26,6 @@ export class AuthService {
   login(loginData: { email: string, senha: string }) {
     this.http.post(environment.BASE_PATH + 'login', loginData, { observe: 'response' as 'response' })
       .pipe(catchError(function (err) {
-        console.log(err);
         return of()
       }))
       .subscribe({
@@ -36,6 +35,7 @@ export class AuthService {
             if (!localStorage.getItem(this.localStorageKey)) {
               localStorage.setItem(this.localStorageKey, token)
             }
+            this.getUser()
             this.route.navigate(['feed'])
           }
         },
@@ -62,7 +62,6 @@ export class AuthService {
           this.user.next(data);
         },
         error: err => {
-          console.log('err', err)
         }
       })
     }    

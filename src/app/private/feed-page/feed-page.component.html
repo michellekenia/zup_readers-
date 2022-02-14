@@ -15,3 +15,41 @@
 </section>
 <app-book-profile *ngIf="openProfile | async" [openProfile]="openProfile" [currentBook]="currentBook"></app-book-profile>
 
+<div class="filters-container {{filterOpen? 'open': ''}}">
+    <form *ngIf="filtersForm" class="form-group" [formGroup]="filtersForm">
+
+        <h2>Filtros</h2>
+
+        <div class="form-control">
+            <label for="">Nome</label>
+            <input type="text" formControlName="nome" placeholder="nome">
+        </div>
+
+        <div class="form-control">
+            <label for="">autor</label>
+            <input type="text" formControlName="autor" placeholder="autor">
+        </div>
+
+        <div class="form-control">
+            <label for="">Tags</label>
+            <select formControlName="tags">
+                <option *ngFor="let tag of tags" [value]="tag">{{tag}}</option>
+            </select>
+        </div>
+
+        <div class="form-control">
+            <label for="">Genero</label>
+            <select formControlName="genero">
+                <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
+            </select>
+        </div>
+
+        <button class="zp-button azul" (click)="filtrar()">Aplicar filtro</button>
+        <button class="zp-button vermelho" (click)="limparFiltros()">Limpar filtros</button>
+
+        <button class="open-filter-button" (click)="filterOpen = !filterOpen">
+            <img src="../../../assets/img/lupa.svg" alt="">
+        </button>    
+    </form>   
+
+</div>

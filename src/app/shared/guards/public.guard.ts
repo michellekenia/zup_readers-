@@ -15,10 +15,10 @@ export class PublicGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      // if (this.authService.isLogged()) {
-      //   this.router.navigate(['login']);
-      //   return false;
-      // }     
+      if (this.authService.isLogged()) {
+        this.router.navigate(['login']);
+        return false;
+      }     
     return true;
   }
   

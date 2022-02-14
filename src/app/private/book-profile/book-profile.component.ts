@@ -73,7 +73,6 @@ export class BookProfileComponent implements OnInit, OnDestroy {
       return      
     }
     let resp = this.form.value;
-    // resp.review['texto'] = resp.review
     this.crudService.post(environment.BASE_PATH + 'livros', this.formatToSend(this.form.value))
       .subscribe( resp => {
         // feedback
@@ -96,7 +95,6 @@ export class BookProfileComponent implements OnInit, OnDestroy {
   }
 
   formatToSend(book: any) {
-    console.log('book format', book)
     book.review = { texto: book.review}
     return book
   }
@@ -108,7 +106,6 @@ export class BookProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('destroy');
     this.subscriptions.forEach(data => {
       data.unsubscribe();
     })

@@ -10,9 +10,9 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    let token: string | null = localStorage.getItem('auth'); // This retrieves a token from local storage
+    let token: string | null = localStorage.getItem('auth');
     if (token) {
-      req = req.clone({ headers: req.headers.set('Authorization', token) });// This clones HttpRequest and Authorization header with Bearer token added
+      req = req.clone({ headers: req.headers.set('Authorization', token) });
     }
 
     return next.handle(req)
@@ -20,10 +20,9 @@ export class AuthInterceptorService implements HttpInterceptor {
        catchError((error: HttpErrorResponse) => {
             // Catching Error Stage
             if (error && error.status === 401) {
-                console.log("ERROR 401 UNAUTHORIZED") // in case of an error response the error message is displayed
             }
             const err = error.error.message || error.statusText;
-            return throwError(error); // any further errors are returned to frontend                    
+            return throwError(error);                    
        })
     );
   }

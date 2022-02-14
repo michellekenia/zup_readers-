@@ -45,3 +45,46 @@ div.content-container{
     }
 
 }
+
+.filters-container {
+    width: 500px;
+    position: absolute;
+    top: var(--header-heigth);
+    left: -500px;
+    z-index: 10;
+    &.open {
+        left: 0 !important;
+    }
+
+    .form-group {
+        position: relative;
+        overflow: inherit;
+        height: calc(100vh - var(--header-heigth));
+        border-radius: 0;
+        box-shadow: 1px 5px 20px var(--preto);
+        h2 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .form-contol {
+            width: 25%;
+        }
+        .open-filter-button {
+            position: absolute;
+            background-color: var(--laranja-claro);
+            top: -15px;
+            padding: 5px;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            right: -50px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+    }
+    button {
+        margin-top: 15px;
+    }
+
+}
